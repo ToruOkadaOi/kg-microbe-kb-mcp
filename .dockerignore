@@ -10,7 +10,6 @@
 # Documentation & examples
 README.md
 .env.example
-docs/
 
 # Python
 __pycache__

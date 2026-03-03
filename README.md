@@ -5,19 +5,19 @@ Model Context Protocol server providing semantic search and documentation access
 ## Quick Start
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 The server starts on `http://localhost:8031/sse`. To use a different port:
 
 ```bash
-PORT=8080 docker-compose up -d
+PORT=8080 docker compose up -d
 ```
 
 ## Prerequisites
 
 - Docker
-- docker-compose
+- Docker Compose
 
 ## Integration
 
@@ -58,15 +58,25 @@ Add to `opencode.json`:
 
 ```bash
 # Stop server
-docker-compose down
+docker compose down
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Rebuild from source
-docker-compose up --build
+docker compose up --build
 ```
 
 ## Configuration
 
 Copy `.env.example` to `.env` to customize settings. See `.env.example` for available options.
+
+## Deployment ### TODO
+
+endpoint smtg like: `https://kg-microbe-docs.gitlab.informatik.uni-halle.de/sse`
+
+- [ ] GitLab CI deploy step: SSH into lab server, pull image, restart container
+- [ ] HAProxy backend entry pointing to container port (8031)
+- [ ] DNS record for `kg-microbe-docs.gitlab.informatik.uni-halle.de`
+
+Client setup changes accordingly

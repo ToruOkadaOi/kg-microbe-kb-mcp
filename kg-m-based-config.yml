@@ -51,10 +51,10 @@ embeddings:
     weight: "similarity"
     
     # Graph search options
-    #search:
-    #  max_hops: 2
-    #  use_centrality: true
-    #  min_score: 0.25
+    search:
+      max_hops: 2
+      use_centrality: true
+      min_score: 0.25
 
 # Search configuration - emphasize keyword matching for technical queries
 search:
