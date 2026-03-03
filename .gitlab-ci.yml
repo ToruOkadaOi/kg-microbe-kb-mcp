@@ -1,0 +1,38 @@
+# GitLab CI/CD Pipeline - Build & Push Docker Image to Registry
+
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  REGISTRY: ${CI_REGISTRY}
+  IMAGE_NAME: ${CI_REGISTRY_IMAGE}
+  IMAGE_TAG: ${CI_COMMIT_SHORT_SHA}
+
+build-and-push:
+  stage: build
+  script:
+    # Log in to GitLab Container Registry
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    
+    # Build Docker image
+    - docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+    
+    # Push to registry
+    - docker push ${IMAGE_NAME}:${IMAGE_TAG}
+    
+    # Optionally tag as 'latest'
+    - docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
+    - docker push ${IMAGE_NAME}:latest
+  
+  only:
+    - main
+  
+  tags:
+    - docker
